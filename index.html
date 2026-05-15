@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizSell Miami — Blueprint Edition</title>
+    <meta name="description" content="Miami's premier business marketplace. Buy and sell companies with AI matching, secure transactions, and verified listings.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blueprint: {
+                            50: '#e8f0f8',
+                            100: '#c5d8ed',
+                            200: '#a0c0e0',
+                            300: '#7aa8d3',
+                            400: '#5a90c6',
+                            500: '#4a7fb5',
+                            600: '#3a6fa0',
+                            700: '#2a5f8b',
+                            800: '#1a4f76',
+                            900: '#0a3f61',
+                            950: '#052d4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #0a1628;
+            color: #e0e0e0;
+        }
+        
+        /* Blueprint Grid Background */
+        .blueprint-bg {
+            background-color: #0a1628;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Technical Drawing Lines */
+        .tech-border {
+            border: 1px solid rgba(255,255,255,0.15);
+            position: relative;
+        }
+        .tech-border::before,
+        .tech-border::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .tech-border::before {
+            top: -1px;
+            left: -1px;
+            border-right: none;
+            border-bottom: none;
+        }
+        .tech-border::after {
+            bottom: -1px;
+            right: -1px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        /* Measurement Ticks */
+        .measure-ticks {
+            position: relative;
+        }
+        .measure-ticks::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 9px,
+                rgba(255,255,255,0.1) 9px,
+                rgba(255,255,255,0.1) 10px
+            );
+        }
+        
+        /* Technical Card */
+        .tech-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255,255,255,0.2) 20%, 
+                rgba(255,255,255,0.2) 80%, 
+                transparent 100%
+            );
+        }
+        
+        /* Construction Lines */
+        .construction-line {
+            position: relative;
+        }
+        .construction-line::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.1) 0px,
+                rgba(255,255,255,0.1) 5px,
+                transparent 5px,
+                transparent 10px
+            );
+        }
+        
+        /* Arrow Markers */
+        .arrow-marker {
+            position: relative;
+            padding-left: 20px;
+        }
+        .arrow-marker::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.3);
+            font-size: 10px;
+        }
+        
+        /* Orthographic Grid */
+        .ortho-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        /* Technical Labels */
+        .tech-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+        
+        /* Dimension Lines */
+        .dimension {
+            position: relative;
+            padding: 0 20px;
+        }
+        .dimension::before,
+        .dimension::after {
+            content: '|';
+            position: absolute;
+            top: 0;
+            color: rgba(255,255,255,0.2);
+        }
+        .dimension::before { left: 5px; }
+        .dimension::after { right: 5px; }
+        
+        /* Blueprint Navigation */
+        .blueprint-nav {
+            background: rgba(10,22,40,0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Inset Views */
+        .inset-view {
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.02);
+            position: relative;
+        }
+        .inset-view::before {
+            content: attr(data-view);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #0a1628;
+            padding: 0 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.1em;
+        }
+        
+        /* Schematic Button */
+        .schematic-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+        }
+        .schematic-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.05);
+            transition: left 0.3s;
+        }
+        .schematic-btn:hover::before {
+            left: 0;
+        }
+        
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.1) 0px,
+                rgba(255,255,255,0.1) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            margin: 40px 0;
+            position: relative;
+        }
+        .section-divider::after {
+            content: '◆';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.2);
+            background: #0a1628;
+            padding: 0 10px;
+        }
+        
+        /* Technical Input */
+        .tech-input {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .tech-input:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.3);
+        }
+        
+        /* Crosshair Cursor */
+        .crosshair {
+            cursor: crosshair;
+        }
+        
+        /* Blueprint Title Block */
+        .title-block {
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.02);
+            position: relative;
+        }
+        .title-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Scale Indicator */
+        .scale-indicator {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+        }
+        
+        /* Viewport Border */
+        .viewport {
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .viewport::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body class="blueprint-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="blueprint-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 border border-white/20 flex items-center justify-center">
+                        <span class="font-mono text-xs text-white/60">B/S</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg text-white tracking-wider">BIZSELL</span>
+                        <span class="tech-label ml-2">MIAMI</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <a href="#listings" class="tech-label hover:text-white/60 transition">LISTINGS</a>
+                    <a href="#services" class="tech-label hover:text-white/60 transition">SERVICES</a>
+                    <a href="#contact" class="tech-label hover:text-white/60 transition">CONTACT</a>
+                    <button class="schematic-btn px-4 py-2">
+                        <span class="relative z-10">POST LISTING</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 relative">
+        <!-- Technical Grid Overlay -->
+        <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-20 left-10 w-px h-40 bg-white/5"></div>
+            <div class="absolute top-20 left-10 w-20 h-px bg-white/5"></div>
+            <div class="absolute bottom-20 right-10 w-px h-40 bg-white/5"></div>
+            <div class="absolute bottom-20 right-10 w-20 h-px bg-white/5"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Title Block -->
+            <div class="title-block p-8 mb-12 max-w-3xl">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="tech-label">PROJECT NO. 001</span>
+                    <span class="tech-label">SCALE: 1:1</span>
+                </div>
+                <h1 class="text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
+                    BUY & SELL<br>BUSINESSES
+                </h1>
+                <p class="text-lg text-white/50 max-w-xl">
+                    Technical marketplace for Miami business transactions.
+                    Verified listings, secure escrow, AI matching.
+                </p>
+                <div class="flex gap-4 mt-8">
+                    <div class="dimension">
+                        <span class="tech-label">50+ LISTINGS</span>
+                    </div>
+                    <div class="dimension">
+                        <span class="tech-label">$2.4M VOLUME</span>
+                    </div>
+                    <div class="dimension">
+                        <span class="tech-label">98% SUCCESS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="tech-border p-6 max-w-2xl">
+                <div class="flex gap-4">
+                    <input type="text" placeholder="SEARCH_BUSINESS_TYPE..." class="tech-input flex-1 px-4 py-3 text-sm">
+                    <button class="schematic-btn px-6 py-3">
+                        <span class="relative z-10"><i class="fas fa-search mr-2"></i>FIND</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Featured Listings -->
+    <section id="listings" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="tech-label block mb-2">SHEET: A-1</span>
+                    <h2 class="text-3xl font-bold text-white">FEATURED LISTINGS</h2>
+                </div>
+                <span class="tech-label">VIEW: ORTHOGRAPHIC</span>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Listing 1 -->
+                <div class="tech-card p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="tech-label">REF: BS-001</span>
+                        <span class="px-2 py-1 border border-white/10 text-xs text-white/40">ACTIVE</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Medical Billing Co.</h3>
+                    <p class="text-white/40 text-sm mb-4">Established revenue cycle management firm with 50+ physician clients.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">REVENUE</span>
+                            <span class="text-white">$1.2M/year</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">ASKING</span>
+                            <span class="text-white">$450K</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">MULTIPLE</span>
+                            <span class="text-white">2.8x</span>
+                        </div>
+                    </div>
+                    <button class="schematic-btn w-full py-2">
+                        <span class="relative z-10">VIEW DETAILS →</span>
+                    </button>
+                </div>
+                
+                <!-- Listing 2 -->
+                <div class="tech-card p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="tech-label">REF: BS-002</span>
+                        <span class="px-2 py-1 border border-white/10 text-xs text-white/40">ACTIVE</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Urgent Care Chain</h3>
+                    <p class="text-white/40 text-sm mb-4">3-location urgent care network in Miami-Dade. High growth potential.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">REVENUE</span>
+                            <span class="text-white">$3.8M/year</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">ASKING</span>
+                            <span class="text-white">$1.8M</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">MULTIPLE</span>
+                            <span class="text-white">4.2x</span>
+                        </div>
+                    </div>
+                    <button class="schematic-btn w-full py-2">
+                        <span class="relative z-10">VIEW DETAILS →</span>
+                    </button>
+                </div>
+                
+                <!-- Listing 3 -->
+                <div class="tech-card p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="tech-label">REF: BS-003</span>
+                        <span class="px-2 py-1 border border-white/10 text-xs text-white/40">ACTIVE</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Dermatology Practice</h3>
+                    <p class="text-white/40 text-sm mb-4">Cosmetic + medical dermatology. Prime location in Coral Gables.</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">REVENUE</span>
+                            <span class="text-white">$890K/year</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">ASKING</span>
+                            <span class="text-white">$320K</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">MULTIPLE</span>
+                            <span class="text-white">3.1x</span>
+                        </div>
+                    </div>
+                    <button class="schematic-btn w-full py-2">
+                        <span class="relative z-10">VIEW DETAILS →</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="tech-label block mb-2">SHEET: B-1</span>
+                    <h2 class="text-3xl font-bold text-white">TECHNICAL SPECIFICATIONS</h2>
+                </div>
+                <span class="tech-label">VIEW: DETAIL</span>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="inset-view p-6" data-view="DETAIL A">
+                    <div class="w-12 h-12 border border-white/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-search text-white/40"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">AI MATCHING</h3>
+                    <p class="text-white/40 text-sm">Neural network analysis of buyer/seller compatibility.</p>
+                </div>
+                
+                <div class="inset-view p-6" data-view="DETAIL B">
+                    <div class="w-12 h-12 border border-white/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-white/40"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">ESCROW</h3>
+                    <p class="text-white/40 text-sm">Secure transaction holding with milestone release.</p>
+                </div>
+                
+                <div class="inset-view p-6" data-view="DETAIL C">
+                    <div class="w-12 h-12 border border-white/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-check-double text-white/40"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">VERIFICATION</h3>
+                    <p class="text-white/40 text-sm">Document authentication and financial validation.</p>
+                </div>
+                
+                <div class="inset-view p-6" data-view="DETAIL D">
+                    <div class="w-12 h-12 border border-white/20 flex items-center justify-center mb-4">
+                        <i class="fas fa-chart-line text-white/40"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">VALUATION</h3>
+                    <p class="text-white/40 text-sm">Market-based pricing with comparable analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="tech-border p-8 max-w-2xl mx-auto">
+                <div class="flex justify-between items-start mb-6">
+                    <span class="tech-label">SHEET: C-1</span>
+                    <span class="tech-label">REVISION: 1.0</span>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-2">SUBMIT INQUIRY</h2>
+                <p class="text-white/40 mb-8">Complete technical specifications for listing request.</p>
+                
+                <form class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="tech-label block mb-2">ENTITY_NAME</label>
+                            <input type="text" class="tech-input w-full px-4 py-3 text-sm">
+                        </div>
+                        <div>
+                            <label class="tech-label block mb-2">CONTACT_EMAIL</label>
+                            <input type="email" class="tech-input w-full px-4 py-3 text-sm">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="tech-label block mb-2">BUSINESS_TYPE</label>
+                        <select class="tech-input w-full px-4 py-3 text-sm">
+                            <option value="">SELECT_TYPE...</option>
+                            <option value="medical">MEDICAL_PRACTICE</option>
+                            <option value="retail">RETAIL</option>
+                            <option value="service">SERVICE</option>
+                            <option value="tech">TECHNOLOGY</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="tech-label block mb-2">REVENUE_RANGE</label>
+                        <select class="tech-input w-full px-4 py-3 text-sm">
+                            <option value="">SELECT_RANGE...</option>
+                            <option value="0-500k">$0 - $500K</option>
+                            <option value="500k-1m">$500K - $1M</option>
+                            <option value="1m-5m">$1M - $5M</option>
+                            <option value="5m+">$5M+</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="schematic-btn w-full py-4 mt-4">
+                        <span class="relative z-10">SUBMIT REQUEST →</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="blueprint-nav border-t border-white/10 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 border border-white/20 flex items-center justify-center">
+                            <span class="font-mono text-xs text-white/60">B/S</span>
+                        </div>
+                        <span class="font-bold text-white tracking-wider">BIZSELL</span>
+                    </div>
+                    <p class="text-white/30 text-sm">Technical marketplace for business transactions.</p>
+                </div>
+                <div>
+                    <span class="tech-label block mb-4">NAVIGATION</span>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Listings</a></li>
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Services</a></li>
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">About</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="tech-label block mb-4">CONTACT</span>
+                    <ul class="space-y-2">
+                        <li class="text-white/30 text-sm">+1 786-643-2099</li>
+                        <li class="text-white/30 text-sm">info@bizsell.miami</li>
+                        <li class="text-white/30 text-sm">Miami, FL</li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="tech-label block mb-4">LEGAL</span>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Privacy</a></li>
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-8 text-center">
+                <span class="tech-label">© 2026 BIZSELL MIAMI — ALL RIGHTS RESERVED — REV 1.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('INQUIRY_SUBMITTED — REFERENCE ID: BS-' + Math.random().toString(36).substr(2, 6).toUpperCase());
+        });
+    </script>
+</body>
+</html>
