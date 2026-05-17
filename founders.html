@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founders — 305business.LLC</title>
+    <link rel="icon" type="image/png" href="305business-logo-transparent.png">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WTHCPMC25C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WTHCPMC25C');
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a1628; color: #e0e0e0; min-height: 100vh; overflow-x: hidden; }
+        
+        /* Blueprint Grid Background */
+        .blueprint-bg {
+            background-color: #0a1628;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        /* Technical Drawing Lines */
+        .tech-border {
+            border: 1px solid rgba(255,255,255,0.15);
+            position: relative;
+        }
+        .tech-border::before,
+        .tech-border::after {
+            content: ''; position: absolute; width: 8px; height: 8px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .tech-border::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .tech-border::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        
+        /* Technical Card */
+        .tech-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .tech-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0.2) 80%, transparent 100%);
+        }
+        .tech-card:hover {
+            border-color: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.04);
+        }
+        
+        /* Technical Labels */
+        .tech-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+        
+        /* Schematic Button */
+        .schematic-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .schematic-btn:hover {
+            border-color: rgba(255,255,255,0.4);
+            background: rgba(255,255,255,0.05);
+        }
+        
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: repeating-linear-gradient(90deg, rgba(255,255,255,0.1) 0px, rgba(255,255,255,0.1) 10px, transparent 10px, transparent 20px);
+            margin: 40px 0;
+            position: relative;
+        }
+        .section-divider::after {
+            content: '◆';
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.2);
+            background: #0a1628;
+            padding: 0 10px;
+        }
+        
+        /* Founder Image Frame */
+        .founder-frame {
+            border: 1px solid rgba(255,255,255,0.15);
+            position: relative;
+            padding: 8px;
+        }
+        .founder-frame::before {
+            content: '';
+            position: absolute;
+            top: 4px; left: 4px; right: 4px; bottom: 4px;
+            border: 1px solid rgba(255,255,255,0.1);
+            pointer-events: none;
+        }
+        
+        /* Corner Markers */
+        .corner-marker {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .corner-marker.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .corner-marker.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .corner-marker.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+        .corner-marker.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+    </style>
+</head>
+<body class="blueprint-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a1628]/95 backdrop-blur-sm border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div class="w-8 h-8 border border-white/20 flex items-center justify-center">
+                        <span class="font-mono text-xs text-white/60">305</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-lg text-white tracking-wider">305business</span>
+                        <span class="tech-label ml-2">LLC</span>
+                    </div>
+                </a>
+                <div class="flex items-center gap-6">
+                    <a href="index.html" class="tech-label hover:text-white/60 transition">← BACK TO MAIN</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <span class="tech-label block mb-4">ORGANIZATIONAL CHART — REV 2.0</span>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight">
+                THE FOUNDERS
+            </h1>
+            <p class="text-white/50 text-lg max-w-2xl mx-auto mb-12">
+                Three principals. One mission. Building Miami's premier business marketplace.
+            </p>
+            
+            <!-- South Beach Image -->
+            <div class="max-w-4xl mx-auto mb-12">
+                <div class="tech-border p-2">
+                    <img src="https://images.unsplash.com/photo-1535498730771-e735b998cd64?w=1200&q=80" 
+                         alt="South Beach Miami" 
+                         class="w-full h-64 object-cover"
+                         onerror="this.style.display='none'">
+                    <div class="flex justify-between items-center mt-2 px-2">
+                        <span class="tech-label">FIG 1.0 — SOUTH BEACH, MIAMI</span>
+                        <span class="tech-label">SCALE: 1:5000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Founders Grid -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="tech-label block mb-2">SHEET: F-1</span>
+                    <h2 class="text-3xl font-bold text-white">PRINCIPALS</h2>
+                </div>
+                <span class="tech-label">VIEW: ORTHOGRAPHIC</span>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Jasmel Acosta -->
+                <div class="tech-card p-8 text-center">
+                    <div class="founder-frame w-40 h-40 mx-auto mb-6 overflow-hidden">
+                        <img src="https://aidynamic.pro/founder.jpg" alt="Jasmel Acosta" 
+                             class="w-full h-full object-cover"
+                             onerror="this.parentElement.style.display='none'">
+                        <div class="corner-marker tl"></div>
+                        <div class="corner-marker tr"></div>
+                        <div class="corner-marker bl"></div>
+                        <div class="corner-marker br"></div>
+                    </div>
+                    <span class="tech-label block mb-2">REF: F-001</span>
+                    <h3 class="text-2xl font-bold text-white mb-1">Jasmel Acosta</h3>
+                    <p class="text-white/40 text-sm mb-4">FOUNDER & CEO</p>
+                    <p class="text-white/30 text-sm leading-relaxed">
+                        Serial entrepreneur with 15+ years building tech solutions for healthcare and small businesses. Founded multiple companies including MBMB and AI Dynamic Pro.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <span class="tech-label">ALSO FOUNDER OF</span>
+                        <div class="flex justify-center gap-4 mt-3">
+                            <span class="text-xs text-white/30">MBMB</span>
+                            <span class="text-white/20">·</span>
+                            <span class="text-xs text-white/30">AI Dynamic Pro</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Maria Elena Giusti -->
+                <div class="tech-card p-8 text-center">
+                    <div class="founder-frame w-40 h-40 mx-auto mb-6 overflow-hidden">
+                        <img src="maria-giusti.jpg" alt="Maria Elena Giusti" 
+                             class="w-full h-full object-cover"
+                             onerror="this.parentElement.style.display='none'">
+                        <div class="corner-marker tl"></div>
+                        <div class="corner-marker tr"></div>
+                        <div class="corner-marker bl"></div>
+                        <div class="corner-marker br"></div>
+                    </div>
+                    <span class="tech-label block mb-2">REF: F-002</span>
+                    <h3 class="text-2xl font-bold text-white mb-1">Maria Elena Giusti</h3>
+                    <p class="text-white/40 text-sm mb-4">CO-FOUNDER & OPERATIONS</p>
+                    <p class="text-white/30 text-sm leading-relaxed">
+                        Operations expert with deep expertise in business development, client relations, and marketplace management. Leads day-to-day operations and vendor partnerships.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <span class="tech-label">EXPERTISE</span>
+                        <div class="flex justify-center gap-4 mt-3">
+                            <span class="text-xs text-white/30">Operations</span>
+                            <span class="text-white/20">·</span>
+                            <span class="text-xs text-white/30">Client Relations</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Juan Diaz -->
+                <div class="tech-card p-8 text-center">
+                    <div class="founder-frame w-40 h-40 mx-auto mb-6 overflow-hidden">
+                        <img src="juan-diaz.jpg" alt="Juan Diaz" 
+                             class="w-full h-full object-cover"
+                             onerror="this.parentElement.style.display='none'">
+                        <div class="corner-marker tl"></div>
+                        <div class="corner-marker tr"></div>
+                        <div class="corner-marker bl"></div>
+                        <div class="corner-marker br"></div>
+                    </div>
+                    <span class="tech-label block mb-2">REF: F-003</span>
+                    <h3 class="text-2xl font-bold text-white mb-1">Juan Diaz</h3>
+                    <p class="text-white/40 text-sm mb-4">CO-FOUNDER & STRATEGY</p>
+                    <p class="text-white/30 text-sm leading-relaxed">
+                        Strategic leader with expertise in logistics, construction, and business development. Co-founder of Unitec USA and Building Innovation.
+                    </p>
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <span class="tech-label">EXPERTISE</span>
+                        <div class="flex justify-center gap-4 mt-3">
+                            <span class="text-xs text-white/30">Strategy</span>
+                            <span class="text-white/20">·</span>
+                            <span class="text-xs text-white/30">Development</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Calendar Appointments Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="tech-label block mb-2">SHEET: A-1</span>
+                    <h2 class="text-3xl font-bold text-white">SCHEDULE CONSULTATION</h2>
+                </div>
+                <span class="tech-label">VIEW: CALENDAR</span>
+            </div>
+            
+            <div class="tech-border p-8">
+                <p class="text-white/40 mb-6">Book a meeting with our principals to discuss business listings, acquisitions, or marketplace opportunities.</p>
+                
+                <!-- Calendly Inline Widget -->
+                <div id="calendly-widget" style="min-height: 600px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Portfolio Companies For Sale -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <span class="tech-label block mb-2">SHEET: L-1</span>
+                    <h2 class="text-3xl font-bold text-white">PORTFOLIO LISTINGS</h2>
+                </div>
+                <span class="tech-label">VIEW: DETAIL</span>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- MBMB For Sale -->
+                <div class="tech-card p-8">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="tech-label">REF: PL-001</span>
+                        <span class="px-2 py-1 border border-green-500/30 text-xs text-green-400">FOR SALE</span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 border border-white/20 flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-white/40"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Medical Billing Miami Beach</h3>
+                            <p class="text-white/40 text-sm">MBMB</p>
+                        </div>
+                    </div>
+                    <p class="text-white/30 text-sm mb-6">
+                        Established medical billing company with 50+ physician clients. AI-powered revenue cycle management. $2.4M+ revenue recovered to date.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">ANNUAL REVENUE</span>
+                            <span class="text-white">$480K</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">CLIENTS</span>
+                            <span class="text-white">50+ Physicians</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">COLLECTION RATE</span>
+                            <span class="text-white">98.5%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">FOUNDED</span>
+                            <span class="text-white">2019</span>
+                        </div>
+                    </div>
+                    <div class="border-t border-white/10 pt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/30 text-sm">ASKING PRICE</span>
+                            <span class="text-3xl font-bold text-green-400">$150,000</span>
+                        </div>
+                    </div>
+                    <button onclick="document.getElementById('calendly-widget').scrollIntoView({behavior:'smooth'})" 
+                            class="schematic-btn w-full py-3 mt-4">
+                        <span class="relative z-10">SCHEDULE VIEWING →</span>
+                    </button>
+                </div>
+                
+                <!-- AI Dynamic Pro For Sale -->
+                <div class="tech-card p-8">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="tech-label">REF: PL-002</span>
+                        <span class="px-2 py-1 border border-green-500/30 text-xs text-green-400">FOR SALE</span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 border border-white/20 flex items-center justify-center">
+                            <i class="fas fa-robot text-white/40"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">AI Dynamic Pro</h3>
+                            <p class="text-white/40 text-sm">AI Agency</p>
+                        </div>
+                    </div>
+                    <p class="text-white/30 text-sm mb-6">
+                        AI automation agency with 150+ projects delivered. Full-stack team, booking system, and established client base. Ready to scale.
+                    </p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">PROJECTS DELIVERED</span>
+                            <span class="text-white">150+</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">CLIENTS</span>
+                            <span class="text-white">Active Pipeline</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">TECH STACK</span>
+                            <span class="text-white">Full-Stack AI</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-white/30">FOUNDED</span>
+                            <span class="text-white">2020</span>
+                        </div>
+                    </div>
+                    <div class="border-t border-white/10 pt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white/30 text-sm">ASKING PRICE</span>
+                            <span class="text-3xl font-bold text-green-400">$100,000</span>
+                        </div>
+                    </div>
+                    <button onclick="document.getElementById('calendly-widget').scrollIntoView({behavior:'smooth'})" 
+                            class="schematic-btn w-full py-3 mt-4">
+                        <span class="relative z-10">SCHEDULE VIEWING →</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- Contact Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="tech-label block mb-4">CONTACT — 24HR RESPONSE</span>
+            <h2 class="text-3xl font-bold text-white mb-6">INTERESTED IN A LISTING?</h2>
+            <p class="text-white/40 mb-8 max-w-xl mx-auto">
+                All inquiries are confidential. NDA available upon request. Serious buyers only.
+            </p>
+            <div class="flex justify-center gap-6">
+                <a href="tel:+17866432099" class="schematic-btn px-6 py-3">
+                    <i class="fas fa-phone mr-2"></i>+1 786-643-2099
+                </a>
+                <a href="mailto:info@305business.llc" class="schematic-btn px-6 py-3">
+                    <i class="fas fa-envelope mr-2"></i>info@305business.llc
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-12 mt-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 border border-white/20 flex items-center justify-center">
+                            <span class="font-mono text-xs text-white/60">305</span>
+                        </div>
+                        <span class="font-bold text-white tracking-wider">305business</span>
+                    </div>
+                    <p class="text-white/30 text-sm">Miami's premier business marketplace.</p>
+                </div>
+                <div>
+                    <span class="tech-label block mb-4">NAVIGATION</span>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-white/30 hover:text-white/60 text-sm transition">Listings</a></li>
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Services</a></li>
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Founders</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="tech-label block mb-4">CONTACT</span>
+                    <ul class="space-y-2">
+                        <li class="text-white/30 text-sm">+1 786-643-2099</li>
+                        <li class="text-white/30 text-sm">info@305business.llc</li>
+                        <li class="text-white/30 text-sm">Miami, FL</li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="tech-label block mb-4">LEGAL</span>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Privacy</a></li>
+                        <li><a href="#" class="text-white/30 hover:text-white/60 text-sm transition">Terms</a></li>
+                        <li class="text-white/20 text-xs mt-4">305business.LLC is a business listing platform. We do not broker transactions.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-8 text-center">
+                <span class="tech-label">© 2026 305BUSINESS.LLC — ALL RIGHTS RESERVED — REV 2.0</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Calendly Script -->
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script>
+        window.addEventListener('load', function() {
+            if (document.getElementById('calendly-widget')) {
+                Calendly.initInlineWidget({
+                    url: 'https://calendly.com/jasmel-acosta',
+                    parentElement: document.getElementById('calendly-widget'),
+                    prefill: {},
+                    utm: {}
+                });
+            }
+        });
+    </script>
+</body>
+</html>
